@@ -9,7 +9,12 @@ public class ProdDictionary {
         hashtable = new Hashtable<Integer, String>();
     }
 
-    public void set(int key,String value) {
+    public void set(int key,String value) throws Exception {
+        if(key <= 0) {
+            throw new Exception("Invalid Key");
+        }else if(value==null || value.equals("")) {
+            throw new Exception("Invalid Value");
+        }
         hashtable.put(key, value);
     }
 

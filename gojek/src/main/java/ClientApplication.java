@@ -2,9 +2,9 @@ import model.ProdDictionary;
 
 public class ClientApplication {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         ProdDictionary prodDictionary = new ProdDictionary();
-        prodDictionary.set(1,"SONY TV");
+        prodDictionary.set(1,"Sony TV");
         prodDictionary.set(2,"Apple iphone");
 
         String name = prodDictionary.get(1);
