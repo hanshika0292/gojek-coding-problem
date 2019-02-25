@@ -1,5 +1,8 @@
 package model;
 
+import exceptions.InvalidKeyException;
+import exceptions.InvalidValueException;
+
 import java.util.Hashtable;
 
 public class ProdDictionary {
@@ -9,11 +12,11 @@ public class ProdDictionary {
         hashtable = new Hashtable<Integer, String>();
     }
 
-    public void set(int key,String value) throws Exception {
+    public void set(int key,String value) throws InvalidKeyException, InvalidValueException {
         if(key <= 0) {
-            throw new Exception("Invalid Key");
+            throw new InvalidKeyException("Key cannot be 0 or less than that");
         }else if(value==null || value.equals("")) {
-            throw new Exception("Invalid Value");
+            throw new InvalidValueException("Value cannot be null or empty");
         }
         hashtable.put(key, value);
     }
