@@ -2,6 +2,7 @@ package model;
 
 import exceptions.InvalidKeyException;
 import exceptions.InvalidValueException;
+import exceptions.KeyNotFoundException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -47,6 +48,14 @@ public class ProdDictionaryTest {
         Assert.assertEquals(value2,prodDictionary.get(key2));
     }
 
+    @Test(expected = KeyNotFoundException.class)
+    public void testGetterInvalid() throws Exception {
+        int key1 = 1;
+        int key2 = 2;
+        String value2 = "Apple iphone";
+        prodDictionary.set(key2,value2);
+        Assert.assertEquals(key1,prodDictionary.get(key1));
+    }
 
     @Test
     public void testUpdateValueInSetter() throws Exception {
