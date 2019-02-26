@@ -1,31 +1,57 @@
 package model;
 
-import exceptions.InvalidKeyException;
-import exceptions.InvalidValueException;
-import exceptions.KeyNotFoundException;
-
-import java.util.Hashtable;
-
 public class ProdDictionary {
-    private Hashtable<Integer,String> dictionary;
 
-    public ProdDictionary(){
-        dictionary = new Hashtable<Integer, String>();
+    private LinkedListNode[] values;
+    private int capacity;
+
+    public ProdDictionary(int capacity){
+        this.capacity = capacity;
+        values = new LinkedListNode[this.capacity];
     }
 
-    public void set(int key,String value) throws InvalidKeyException, InvalidValueException {
-        if(key <= 0) {
-            throw new InvalidKeyException("Key cannot be 0 or less than that");
-        }else if(value==null || value.equals("")) {
-            throw new InvalidValueException("Value cannot be null or empty");
+    public boolean set(int key,String value){
+        int hashValueOfKey = getHashValue(key);
+        LinkedListNode valueLL = values[hashValueOfKey];
+        while (valueLL != null){
+            if(valueLL.key==key){
+                valueLL.value = value;
+                return true;
+            }
+            valueLL = valueLL.next;
         }
-        dictionary.put(key, value);
+        valueLL = new LinkedListNode(key,value);
+        return true;
     }
 
-    public String get(int key) throws KeyNotFoundException {
-        if(!dictionary.contains(key)) {
-            throw new KeyNotFoundException("Key not present in dictionary");
+    private int getHashValue(int key) {
+        return key%this.capacity;
+    }
+
+    public String get(int key) {
+        int hashValueOfKey = getHashValue(key);
+        LinkedListNode valueLL = values[hashValueOfKey];
+        while (valueLL!=null){
+            if(valueLL.key==key){
+                return valueLL.value;
+            }
         }
-        return dictionary.get(key);
+        return null;
+    }
+
+    private class LinkedListNode{
+        int key;
+        String value;
+        LinkedListNode next;
+        LinkedListNode(int key,String value){
+            this.key = key;
+            this.value = value;
+        }
     }
 }
+
+
+
+// 1 aa - (1/10)=0
+// 11 bb - (11/10)=1
+// 101 cc - (101/10)=10
