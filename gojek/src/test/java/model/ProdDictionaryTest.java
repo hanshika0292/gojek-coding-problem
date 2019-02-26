@@ -13,7 +13,7 @@ public class ProdDictionaryTest {
 
     @Before
     public void setUp() {
-        prodDictionary = new ProdDictionary();
+        prodDictionary = new ProdDictionary(10);
     }
 
     @Test
